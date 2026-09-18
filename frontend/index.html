@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Lakshmi Devi Ladies Tailors & Boutique - Guntur</title>
+
+  <!-- WhatsApp, Facebook & Social Media Rich Preview Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lakshmi Devi Ladies Tailors & Boutique | Guntur">
+  <meta property="og:description" content="Expert Custom Stitching for 20+ Years in Rajendranagar, Guntur. Designer Blouses, Bridal Half Sarees, Alterations & Maggam Work. Tap to view catalog.">
+  <meta property="og:image" content="https://tailordesk-portal-surya.s3.us-east-1.amazonaws.com/tailor.logo.png">
+  <meta name="description" content="Expert Custom Tailoring and Boutique in Rajendranagar, Guntur. Designer Blouses, Lehengas, and Alterations.">
+
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Top Header -->
+    <div class="header">
+      <div class="brand">
+        <div class="logo-badge">LD</div>
+        <div class="shop-info">
+          <h2 id="t_shopTitle">LAKSHMI DEVI LADIES TAILORS</h2>
+          <p id="t_shopSub">Rajendranagar, 1st Line, Guntur | 20+ Yrs Exp</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="https://www.google.com/maps?q=16.312668,80.415438" target="_blank" class="btn btn-outline">📍 <span id="t_maps">Shop Location</span></a>
+        <button class="btn btn-outline" onclick="toggleLang()" id="langBtn">తెలుగు (TE)</button>
+        <button class="btn btn-outline" onclick="openOwnerModal()">🔒 <span id="t_owner">Owner</span></button>
+        <a href="tel:8008717360" class="btn btn-green">📞 8008717360</a>
+      </div>
+    </div>
+
+    <!-- CUSTOMER BOOKING PORTAL -->
+    <div id="customerPortal">
+      <div class="stepper">
+        <div class="step active" id="st1Ind" onclick="navStep(1)"><span class="step-circle">1</span> <span id="t_st1">Customer Details</span></div>
+        <div class="step" id="st2Ind" onclick="navStep(2)"><span class="step-circle">2</span> <span id="t_st2">Select Services</span></div>
+        <div class="step" id="st3Ind" onclick="navStep(3)"><span class="step-circle">3</span> <span id="t_st3">Fitting & Booking</span></div>
+      </div>
+
+      <!-- STEP 1: Details Intake -->
+      <div id="step1View">
+        <div class="card">
+          <div style="font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 6px;" id="t_welcome">Customer Intake Form</div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;" id="t_welcomeSub">Enter your basic contact details to browse our design catalog and discuss custom orders with master tailor Smt. Lakshmi Devi.</div>
+          
+          <div class="form-group">
+            <label id="t_phoneLbl">WhatsApp / Phone Number *</label>
+            <input type="tel" id="custPhone" oninput="checkReturningCustomer(this.value)" required>
+          </div>
+          <div class="form-group">
+            <label id="t_nameLbl">Full Name *</label>
+            <input type="text" id="custName" required>
+          </div>
+          <div class="form-group">
+            <label id="t_addrLbl">Area / Address in Guntur *</label>
+            <input type="text" id="custAddr" required>
+          </div>
+          <button class="btn btn-maroon" style="width: 100%; justify-content: center; padding: 14px;" onclick="goToStep2()" id="t_nextBtn">Confirm & View Services →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Catalog Selection -->
+      <div id="step2View" style="display: none;">
+        <div class="catalog-tabs">
+          <button class="cat-btn active" id="btnCatDresses" onclick="switchCategory('Dresses')">1. Stitched Dresses & Lehengas</button>
+          <button class="cat-btn" id="btnCatAlt" onclick="switchCategory('Alterations')">2. Alterations & Saree Falls</button>
+          <button class="cat-btn" id="btnCatMaggam" onclick="switchCategory('Maggam')">3. Maggam & Aari Work</button>
+          <button class="cat-btn" id="btnCatCoaching" onclick="switchCategory('Coaching')">4. Tailoring Classes</button>
+        </div>
+
+        <div class="catalog-scroll-container">
+          <div id="categoryContainer" class="grid"></div>
+        </div>
+
+        <div class="bottom-bar">
+          <div>
+            <span style="font-size: 12px; color: var(--text-muted);" id="t_selLbl">Total Selected:</span>
+            <div style="font-weight: 800; font-size: 16px; color: var(--primary);" id="selectedCount">0 Items</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline" onclick="navStep(1)">← Back to Details</button>
+            <button class="btn btn-maroon" onclick="goToStep3()" id="t_reviewBtn">Review & Confirm Fitting →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Order Review & Customer Feedback -->
+      <div id="step3View" style="display: none;">
+        <div class="card">
+          <div style="font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 6px;" id="t_sumTitle">Order Summary & Tailor Consultation</div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;" id="t_sumSub">Review your selections. Master tailor Smt. Lakshmi Devi will confirm exact measurements and delivery timeline.</div>
+
+          <div style="background: #faf6f0; border: 1.5px solid var(--border-light); padding: 16px; border-radius: 12px; margin-bottom: 18px;">
+            <div style="font-size: 13.5px; margin-bottom: 6px;"><b>Customer:</b> <span id="revName"></span></div>
+            <div style="font-size: 13.5px; margin-bottom: 6px;"><b>Contact:</b> <span id="revPhone"></span></div>
+            <div style="font-size: 13.5px; margin-bottom: 6px;"><b>Address:</b> <span id="revAddr"></span></div>
+            <div style="font-size: 13.5px; margin-top: 8px;"><b>Selected Services:</b> <span id="revServices" style="color: var(--primary); font-weight: 600;"></span></div>
+            <div id="selectedImagesRow" style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;"></div>
+          </div>
+
+          <div class="form-group">
+            <label id="t_notesLbl">Special Fitting Instructions or Alteration Details:</label>
+            <textarea id="orderNotes" rows="2"></textarea>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="btn btn-green" style="justify-content: center; padding: 14px; font-size: 15px;" onclick="sendWhatsAppOrder()" id="t_waBtn">💬 Confirm & Send Order via WhatsApp</button>
+            <a href="tel:8008717360" class="btn btn-outline" style="justify-content: center; padding: 11px;">📞 Call Master Tailor Directly (8008717360)</a>
+            <button class="btn btn-outline" style="justify-content: center; background: #fff8f0; color: #a34e00; border-color: #ffd8a8;" onclick="submitOrder('2. Selected but Not Now')" id="t_cbBtn">🕒 Selected but Not Now / Request Free Callback</button>
+            <button class="btn btn-outline" style="justify-content: center; margin-top: 4px;" onclick="navStep(2)">← Modify Selected Services</button>
+          </div>
+        </div>
+
+        <!-- Feedback Form -->
+        <div class="card">
+          <div style="font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Rate Our Boutique / Share Feedback</div>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Your feedback helps Smt. Lakshmi Devi maintain high stitching and finishing standards.</p>
+          
+          <div class="star-rating" id="starContainer">
+            <span onclick="setRating(1)">★</span>
+            <span onclick="setRating(2)">★</span>
+            <span onclick="setRating(3)">★</span>
+            <span onclick="setRating(4)">★</span>
+            <span onclick="setRating(5)" class="selected">★</span>
+          </div>
+          
+          <div class="form-group">
+            <label>Comments / Stitching Experience:</label>
+            <textarea id="fbMessage" rows="2"></textarea>
+          </div>
+          <button class="btn btn-maroon btn-sm" onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OWNER ADMINISTRATION PORTAL -->
+    <div id="ownerPortal" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); font-size: 22px;">Shop Administration & Daily Ledger</h3>
+        <button class="btn btn-outline btn-sm" onclick="logoutOwner()">View Live Site / Logout ✕</button>
+      </div>
+
+      <div class="catalog-tabs">
+        <button class="cat-btn active" id="tabInquiries" onclick="switchAdminTab('inquiries')">📇 Customer Entry Book</button>
+        <button class="cat-btn" id="tabLedger" onclick="switchAdminTab('ledger')">👥 Workers & Daily Work Tracker</button>
+        <button class="cat-btn" id="tabModels" onclick="switchAdminTab('models')">👗 Manage Dress Models</button>
+        <button class="cat-btn" id="tabFeedback" onclick="switchAdminTab('feedback')">💬 Customer Feedback</button>
+      </div>
+
+      <!-- Admin Tab 1: Customer Entries -->
+      <div id="adminInquiriesView">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4>Registered Customer Entries</h4>
+            <button class="btn btn-outline btn-sm" onclick="loadAdminInquiries()">🔄 Refresh Entries</button>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Filter customers by order stage. Click any card to inspect chosen dress photos and fitting details.
+          </p>
+          
+          <div class="customer-filter-bar">
+            <button class="cust-filter-btn btn-all active" id="fBtnAll" onclick="setCustomerFilter('ALL')">
+              Show All <span class="badge" id="countAll">0</span>
+            </button>
+            <button class="cust-filter-btn btn-stitching" id="fBtnStitching" onclick="setCustomerFilter('STITCHING')">
+              ✂ 1. Selected & Reached to Stitching <span class="badge" id="countStitching">0</span>
+            </button>
+            <button class="cust-filter-btn btn-callback" id="fBtnCallback" onclick="setCustomerFilter('CALLBACK')">
+              🕒 2. Selected but Not Now <span class="badge" id="countCallback">0</span>
+            </button>
+            <button class="cust-filter-btn btn-browsed" id="fBtnBrowsed" onclick="setCustomerFilter('BROWSED')">
+              👁 3. Just Browsed <span class="badge" id="countBrowsed">0</span>
+            </button>
+          </div>
+
+          <div class="grid" id="customerCards"></div>
+        </div>
+      </div>
+
+      <!-- Admin Tab 2: Worker & Profit Tracker -->
+      <div id="adminLedgerView" style="display: none;">
+        <div class="card">
+          <h4>👤 Worker Profiles (Team Members)</h4>
+          <div style="display: flex; gap: 10px; margin-top: 12px;">
+            <input type="text" id="newWorkerInput" placeholder="Worker full name">
+            <button class="btn btn-maroon" onclick="addWorkerProfile()">+ Add Worker</button>
+          </div>
+          <div class="worker-chips" id="workerChipsContainer" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;"></div>
+        </div>
+
+        <div class="card">
+          <h4>✔ Record Daily Stitched Item</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 14px;">
+            <div>
+              <label>Worker</label>
+              <select id="wNameSelect"></select>
+            </div>
+            <div>
+              <label>Date</label>
+              <input type="date" id="wDate">
+            </div>
+            <div>
+              <label>Garment Category</label>
+              <input type="text" id="wGarmentInput">
+            </div>
+            <div>
+              <label>Pieces Stitched</label>
+              <input type="number" id="wPieces" value="1" min="1">
+            </div>
+            <div>
+              <label>Piece Rate to Worker (₹)</label>
+              <input type="number" id="wRate" value="220">
+            </div>
+            <div>
+              <label>Customer Price (₹)</label>
+              <input type="number" id="wCustomerPrice" value="350">
+            </div>
+          </div>
+          <button class="btn btn-green" style="margin-top: 16px;" onclick="addWorkerLog()">+ Add to Daily Work Log</button>
+        </div>
+
+        <div class="card" style="background: #f0fdf4; border: 1.5px solid #bbf7d0;">
+          <h4>💰 Shop Earnings & Profit Tracker (Owner View)</h4>
+          <div style="margin-top: 8px;">Total Profit: <b id="totalShopProfit" style="font-size: 22px; color: var(--accent-green);">₹0</b></div>
+          <div class="grid" id="workerProfitBreakdown" style="margin-top: 14px;"></div>
+        </div>
+
+        <div class="card">
+          <h4>💳 Worker Pending Balances & Settlements</h4>
+          <div class="grid" id="workerBalancesContainer" style="margin-top: 14px;"></div>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+            <h4>Daily Work History Register</h4>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <select id="workerFilterSelect" style="width: auto; padding: 6px 12px;" onchange="filterLedgerByWorker(this.value)">
+                <option value="ALL">All Workers & Self</option>
+              </select>
+              <button class="btn btn-outline btn-sm" id="viewModeToggle" onclick="toggleWorkerViewMode()">🔒 Switch to Worker View</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr id="ledgerHeaderRow">
+                  <th>Date</th>
+                  <th>Worker</th>
+                  <th>Garment</th>
+                  <th>Pieces</th>
+                  <th>Worker Pay (₹)</th>
+                  <th class="owner-col">Cust. Price (₹)</th>
+                  <th class="owner-col">Profit (₹)</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="ledgerRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Tab 3: Manage Catalog -->
+      <div id="adminModelsView" style="display: none;">
+        <div class="card">
+          <h4>Add New Dress Model</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div>
+              <label>Model Name (English) *</label>
+              <input type="text" id="mEn">
+            </div>
+            <div>
+              <label>Model Name (Telugu) *</label>
+              <input type="text" id="mTe">
+            </div>
+            <div>
+              <label>Category *</label>
+              <select id="mCat">
+                <option value="Dresses">1. Stitched Dresses & Lehengas</option>
+                <option value="Maggam">3. Maggam & Aari Work</option>
+              </select>
+            </div>
+            <div>
+              <label>Starting Price (₹) *</label>
+              <input type="number" id="mPrice">
+            </div>
+            <div style="grid-column: span 2;">
+              <label>Image URL *</label>
+              <input type="text" id="mImg">
+            </div>
+          </div>
+          <button class="btn btn-maroon" style="margin-top: 16px;" onclick="addCatalogModel()">+ Publish Outfit to Live Catalog</button>
+        </div>
+        <div class="card">
+          <h4>Current Models</h4>
+          <div id="adminCatalogList" class="grid" style="margin-top: 14px;"></div>
+        </div>
+      </div>
+
+      <!-- Admin Tab 4: Customer Feedback Viewer -->
+      <div id="adminFeedbackView" style="display: none;">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h4>Customer Reviews & Feedback</h4>
+            <button class="btn btn-outline btn-sm" onclick="loadFeedback()">🔄 Refresh Feedback</button>
+          </div>
+          <div id="feedbackList" class="grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Order Details Modal -->
+    <div id="custDetailsModal" class="modal-overlay" onclick="closeCustModal(event)">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <h4 id="mCustName" style="font-family: 'Playfair Display', serif; font-size: 19px; color: var(--primary);"></h4>
+        <div style="font-size: 13px; color: var(--text-muted); margin: 4px 0 12px 0;" id="mCustPhone"></div>
+        <div style="font-size: 13px; margin-bottom: 10px;"><b>Address:</b> <span id="mCustAddr"></span></div>
+        <div style="font-size: 13px; margin-bottom: 10px;"><b>Status:</b> <span id="mCustStatus" style="color: #b45309; font-weight: 700;"></span></div>
+        
+        <div style="margin-top: 14px;">
+          <label style="font-size: 12.5px; color: var(--text-muted);">Chosen Items / Outfits (Click image to zoom):</label>
+          <div id="mCustItemsList" style="font-size: 13.5px; font-weight: 700; color: var(--primary); margin-bottom: 10px;"></div>
+          <div id="mCustThumbnails" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;"></div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <label style="font-size: 12.5px; color: var(--text-muted);">Fitting Instructions / Notes:</label>
+          <div id="mCustNotes" style="font-size: 13px; background: #faf8f5; border: 1px solid var(--border-light); padding: 10px; border-radius: 6px;"></div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 18px;">
+          <a id="mCustCallBtn" href="#" class="btn btn-green btn-sm" style="flex-grow: 1; justify-content: center;">📞 Call Customer</a>
+          <button class="btn btn-outline btn-sm" onclick="closeCustModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Owner Authentication Modal (Includes Recruiter/Demo Access) -->
+    <div id="ownerModal" class="modal-overlay" style="display: none;">
+      <div class="modal-content" style="max-width: 360px;">
+        <h4 style="font-family: 'Playfair Display', serif; margin-bottom: 12px; font-size: 18px;">Studio Owner Login</h4>
+        
+        <label style="font-size: 12px;">Authorized Email</label>
+        <input type="email" id="ownerEmail" placeholder="suryakiran9391@gmail.com" style="margin-bottom: 12px;">
+        
+        <label style="font-size: 12px;">PIN / Passcode</label>
+        <input type="password" id="ownerPass" placeholder="••••••••" style="margin-bottom: 14px;">
+
+        <!-- Recruiter One-Click Auto Login -->
+        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 10px; margin-bottom: 14px; text-align: center;">
+          <div style="font-size: 11.5px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Reviewer / Interviewer Demo Mode</div>
+          <button type="button" class="btn btn-outline btn-sm" style="font-size: 11.5px; padding: 6px 12px; width: 100%; justify-content: center; background: #fff; font-weight: 700; color: var(--primary);" onclick="fillDemoCredentials()">
+            ⚡ Auto-Fill & Login to Dashboard
+          </button>
+        </div>
+
+        <button class="btn btn-maroon" style="width: 100%; justify-content: center; padding: 12px;" onclick="verifyOwner()">Verify & Enter</button>
+        <button class="btn btn-outline" style="width: 100%; justify-content: center; margin-top: 8px;" onclick="closeOwnerModal()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Zoom Preview Modal & Toast -->
+    <div id="imgModal" onclick="closeImgModal()"><img id="modalImgTag" src="" alt="Dress Preview"></div>
+    <div id="toastNotice"></div>
+
+  </div>
+
+  <script>
+    const API_URL = "https://dmn7sojr3m.execute-api.us-east-1.amazonaws.com/prod";
+    const TAILOR_PHONE = "918008717360";
+
+    const AUTHORIZED_OWNER_EMAIL = "suryakiran9391@gmail.com"; 
+    let ownerPin = localStorage.getItem("tailorOwnerPin") || "Surya@9848";
+
+    let customerDetailsComplete = false;
+    let selectedItems = [];
+    let selectedItemObjects = [];
+    let currentCategory = 'Dresses';
+    let isTelugu = false;
+    let registeredWorkers = ["Self (Smt. Lakshmi Devi)", "ramana"];
+    let rawLedgerData = [];
+    let isWorkerView = false;
+    let catalogCache = [];
+    let currentFeedbackRating = 5;
+    let existingCustomersCache = [];
+    let currentCustomerFilter = 'ALL';
+
+    document.getElementById('wDate').value = new Date().toISOString().split('T')[0];
+
+    // Recruiter Demo Auto Fill
+    function fillDemoCredentials() {
+      document.getElementById('ownerEmail').value = AUTHORIZED_OWNER_EMAIL;
+      document.getElementById('ownerPass').value = ownerPin;
+      verifyOwner();
+    }
+
+    async function prefetchCustomers() {
+      try {
+        const res = await fetch(`${API_URL}/customers`);
+        existingCustomersCache = await res.json();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    prefetchCustomers();
+
+    function checkReturningCustomer(enteredPhone) {
+      const cleaned = enteredPhone.trim();
+      if (cleaned.length >= 10) {
+        const match = existingCustomersCache.find(c => c.phone === cleaned);
+        if (match) {
+          document.getElementById('custName').value = match.name || '';
+          document.getElementById('custAddr').value = match.address || '';
+          showToast(`Welcome back, ${match.name}! Your details have been auto-filled.`);
+        }
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toastNotice');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2400);
+    }
+
+    function zoomImg(url) {
+      document.getElementById('modalImgTag').src = url;
+      document.getElementById('imgModal').style.display = 'flex';
+    }
+    function closeImgModal() {
+      document.getElementById('imgModal').style.display = 'none';
+    }
+
+    function navStep(step) {
+      if ((step === 2 || step === 3) && !customerDetailsComplete) {
+        showToast("Please complete your details in Step 1 first!");
+        return;
+      }
+
+      document.getElementById('step1View').style.display = step === 1 ? 'block' : 'none';
+      document.getElementById('step2View').style.display = step === 2 ? 'block' : 'none';
+      document.getElementById('step3View').style.display = step === 3 ? 'block' : 'none';
+
+      document.getElementById('st1Ind').classList.toggle('active', step === 1);
+      document.getElementById('st2Ind').classList.toggle('active', step === 2);
+      document.getElementById('st3Ind').classList.toggle('active', step === 3);
+
+      if (step === 2) loadCatalog();
+      if (step === 3) renderReview();
+    }
+
+    async function goToStep2() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const addr = document.getElementById('custAddr').value.trim();
+
+      if (!name || !phone || !addr) {
+        showToast("Please fill in Name, Phone, and Address!");
+        return;
+      }
+
+      customerDetailsComplete = true;
+      document.getElementById('st2Ind').classList.add('unlocked');
+      document.getElementById('st3Ind').classList.add('unlocked');
+
+      await fetch(`${API_URL}/customers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, address: addr, status: "3. Just Browsed" })
+      });
+
+      navStep(2);
+    }
+
+    function goToStep3() {
+      navStep(3);
+    }
+
+    function renderReview() {
+      document.getElementById('revName').innerText = document.getElementById('custName').value;
+      document.getElementById('revPhone').innerText = document.getElementById('custPhone').value;
+      document.getElementById('revAddr').innerText = document.getElementById('custAddr').value;
+      document.getElementById('revServices').innerText = selectedItems.join(", ") || "General Inquiry";
+
+      const row = document.getElementById('selectedImagesRow');
+      row.innerHTML = '';
+      selectedItemObjects.forEach(obj => {
+        if (obj.img) {
+          row.innerHTML += `
+            <div style="width:52px; height:52px; border-radius:6px; overflow:hidden; border:1px solid #ccc; cursor:pointer;" onclick="zoomImg('${obj.img}')">
+              <img src="${obj.img}" style="width:100%; height:100%; object-fit:contain; background:#faf7f2;">
+            </div>`;
+        }
+      });
+    }
+
+    function switchCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      if (cat === 'Dresses') document.getElementById('btnCatDresses').classList.add('active');
+      if (cat === 'Alterations') document.getElementById('btnCatAlt').classList.add('active');
+      if (cat === 'Maggam') document.getElementById('btnCatMaggam').classList.add('active');
+      if (cat === 'Coaching') document.getElementById('btnCatCoaching').classList.add('active');
+      loadCatalog();
+    }
+
+    async function loadCatalog() {
+      try {
+        const res = await fetch(`${API_URL}/catalog`);
+        catalogCache = await res.json();
+        const container = document.getElementById('categoryContainer');
+        container.innerHTML = '';
+
+        if (currentCategory === 'Alterations') {
+          container.innerHTML = `
+            <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 12px; border: 1.5px solid var(--border-light);">
+              <h4>✂ Alterations, Saree Falls & Quick Fittings</h4>
+              <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0 12px 0;">Blouse tightening/loosening, saree falls, pico, dress fittings, and zip replacements.</p>
+              <div class="form-group">
+                <label>Describe your alteration requirements:</label>
+                <textarea id="altInput" rows="2"></textarea>
+              </div>
+              <button class="btn btn-outline" onclick="selectAlterations()">+ Select Alterations</button>
+            </div>`;
+          return;
+        }
+
+        if (currentCategory === 'Coaching') {
+          container.innerHTML = `
+            <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 12px; border: 1.5px solid var(--border-light);">
+              <h4>🎓 Ladies Tailoring & Stitching Classes in Guntur</h4>
+              <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0 12px 0;">Hands-on practical machine training for dress cutting, blouse stitching, and aari maggam embroidery from Smt. Lakshmi Devi.</p>
+              <button class="btn btn-outline" onclick="selectItem('Tailoring Coaching Classes', '')">+ Select Coaching Inquiry</button>
+            </div>`;
+          return;
+        }
+
+        const filtered = catalogCache.filter(i => i.category === currentCategory);
+        filtered.forEach(item => {
+          container.innerHTML += `
+            <div class="item-card">
+              <div class="img-wrapper">
+                <img src="${item.imageUrl || 'https://via.placeholder.com/260x180'}" alt="${item.nameEn}" onclick="zoomImg('${item.imageUrl}')">
+              </div>
+              <div class="item-info">
+                <div class="item-name">${isTelugu && item.nameTe ? item.nameTe : item.nameEn}</div>
+                <div class="item-price">₹${item.price}</div>
+                <button class="btn btn-maroon btn-sm" onclick="selectItem('${item.nameEn}', '${item.imageUrl || ''}')">+ Select Outfit</button>
+              </div>
+            </div>`;
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function selectItem(name, img) {
+      selectedItems.push(name);
+      selectedItemObjects.push({ name, img });
+      document.getElementById('selectedCount').innerText = `${selectedItems.length} Items`;
+      showToast(`${name} added!`);
+    }
+
+    function selectAlterations() {
+      const val = document.getElementById('altInput').value.trim();
+      const label = val ? `Alterations (${val})` : 'Alterations / Saree Falls';
+      selectItem(label, '');
+    }
+
+    function sendWhatsAppOrder() {
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const addr = document.getElementById('custAddr').value;
+      const notes = document.getElementById('orderNotes').value;
+      const itemsList = selectedItems.join(", ") || "Tailoring Consultation";
+
+      fetch(`${API_URL}/customers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name, phone, address: addr,
+          services: selectedItems,
+          itemsDetail: selectedItemObjects,
+          instructions: notes,
+          status: "1. Selected & Reached to Stitching"
+        })
+      });
+
+      const message = `*NEW CUSTOMER STITCHING ORDER*\n\n` +
+                      `*Name:* ${name}\n` +
+                      `*Phone:* ${phone}\n` +
+                      `*Address:* ${addr}\n\n` +
+                      `*Selected Services/Outfits:*\n${itemsList}\n\n` +
+                      `*Instructions:* ${notes || 'None'}`;
+
+      const waUrl = `https://api.whatsapp.com/send?phone=${TAILOR_PHONE}&text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    async function submitOrder(status) {
+      await fetch(`${API_URL}/customers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: document.getElementById('custName').value,
+          phone: document.getElementById('custPhone').value,
+          address: document.getElementById('custAddr').value,
+          services: selectedItems,
+          itemsDetail: selectedItemObjects,
+          instructions: document.getElementById('orderNotes').value,
+          status: status
+        })
+      });
+      showToast("Request sent! Smt. Lakshmi Devi will contact you.");
+      setTimeout(() => location.reload(), 2000);
+    }
+
+    function setRating(val) {
+      currentFeedbackRating = val;
+      const stars = document.getElementById('starContainer').children;
+      for (let i = 0; i < 5; i++) {
+        stars[i].classList.toggle('selected', i < val);
+      }
+    }
+
+    async function submitFeedback() {
+      const name = document.getElementById('custName').value || 'Customer';
+      const phone = document.getElementById('custPhone').value || 'N/A';
+      const message = document.getElementById('fbMessage').value.trim();
+
+      if (!message) {
+        showToast("Please enter a short comment");
+        return;
+      }
+
+      await fetch(`${API_URL}/feedback`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, rating: currentFeedbackRating, message })
+      });
+
+      showToast("Thank you for your feedback!");
+      document.getElementById('fbMessage').value = '';
+    }
+
+    function openOwnerModal() { document.getElementById('ownerModal').style.display = 'flex'; }
+    function closeOwnerModal() { document.getElementById('ownerModal').style.display = 'none'; }
+
+    function verifyOwner() {
+      const email = document.getElementById('ownerEmail').value.trim().toLowerCase();
+      const pin = document.getElementById('ownerPass').value.trim();
+
+      if (email === AUTHORIZED_OWNER_EMAIL.toLowerCase() && pin === ownerPin) {
+        closeOwnerModal();
+        document.getElementById('ownerPortal').style.display = 'block';
+        document.getElementById('customerPortal').style.display = 'none';
+        switchAdminTab('inquiries');
+      } else {
+        showToast("Access Denied! Unauthorized user.");
+      }
+    }
+
+    function logoutOwner() {
+      document.getElementById('ownerPortal').style.display = 'none';
+      document.getElementById('customerPortal').style.display = 'block';
+    }
+
+    function switchAdminTab(tab) {
+      document.getElementById('adminInquiriesView').style.display = tab === 'inquiries' ? 'block' : 'none';
+      document.getElementById('adminLedgerView').style.display = tab === 'ledger' ? 'block' : 'none';
+      document.getElementById('adminModelsView').style.display = tab === 'models' ? 'block' : 'none';
+      document.getElementById('adminFeedbackView').style.display = tab === 'feedback' ? 'block' : 'none';
+
+      document.getElementById('tabInquiries').classList.toggle('active', tab === 'inquiries');
+      document.getElementById('tabLedger').classList.toggle('active', tab === 'ledger');
+      document.getElementById('tabModels').classList.toggle('active', tab === 'models');
+      document.getElementById('tabFeedback').classList.toggle('active', tab === 'feedback');
+
+      if (tab === 'inquiries') loadAdminInquiries();
+      if (tab === 'ledger') loadLedger();
+      if (tab === 'models') loadAdminCatalog();
+      if (tab === 'feedback') loadFeedback();
+    }
+
+    function setCustomerFilter(filterType) {
+      currentCustomerFilter = filterType;
+
+      document.getElementById('fBtnAll').classList.toggle('active', filterType === 'ALL');
+      document.getElementById('fBtnStitching').classList.toggle('active', filterType === 'STITCHING');
+      document.getElementById('fBtnCallback').classList.toggle('active', filterType === 'CALLBACK');
+      document.getElementById('fBtnBrowsed').classList.toggle('active', filterType === 'BROWSED');
+
+      renderCustomerCards();
+    }
+
+    let cachedCustomerList = [];
+    async function loadAdminInquiries() {
+      try {
+        const res = await fetch(`${API_URL}/customers`);
+        cachedCustomerList = await res.json();
+        existingCustomersCache = cachedCustomerList;
+        renderCustomerCards();
+      } catch (e) {
+        console.error("Failed to load customer inquiries:", e);
+      }
+    }
+
+    function renderCustomerCards() {
+      const container = document.getElementById('customerCards');
+      container.innerHTML = '';
+
+      let cStitch = 0, cCall = 0, cBrowse = 0;
+
+      cachedCustomerList.forEach(c => {
+        const status = c.status || '';
+        if (status.includes('1.') || status.includes('Stitching')) cStitch++;
+        else if (status.includes('2.') || status.includes('Callback')) cCall++;
+        else cBrowse++;
+      });
+
+      document.getElementById('countAll').innerText = cachedCustomerList.length;
+      document.getElementById('countStitching').innerText = cStitch;
+      document.getElementById('countCallback').innerText = cCall;
+      document.getElementById('countBrowsed').innerText = cBrowse;
+
+      const filteredList = cachedCustomerList.filter(c => {
+        const status = c.status || '';
+        if (currentCustomerFilter === 'STITCHING') return status.includes('1.') || status.includes('Stitching');
+        if (currentCustomerFilter === 'CALLBACK') return status.includes('2.') || status.includes('Callback');
+        if (currentCustomerFilter === 'BROWSED') return !status.includes('1.') && !status.includes('2.') && !status.includes('Stitching') && !status.includes('Callback');
+        return true;
+      });
+
+      if (filteredList.length === 0) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 24px;">No customer entries found in this category.</div>`;
+        return;
+      }
+
+      filteredList.forEach((c) => {
+        const realIdx = cachedCustomerList.indexOf(c);
+        
+        let badgeColor = '#475569';
+        let badgeBg = '#e2e8f0';
+        if ((c.status || '').includes('1.') || (c.status || '').includes('Stitching')) {
+          badgeColor = '#991b1b';
+          badgeBg = '#fee2e2';
+        } else if ((c.status || '').includes('2.') || (c.status || '').includes('Callback')) {
+          badgeColor = '#92400e';
+          badgeBg = '#fef3c7';
+        }
+
+        container.innerHTML += `
+          <div class="cust-entry-card" onclick="openCustomerDetail(${realIdx})">
+            <span style="position: absolute; top: 12px; right: 12px; cursor: pointer; color: #dc2626;" onclick="event.stopPropagation(); deleteCustomer('${c.phone}', '${c.timestamp}')">🗑</span>
+            <div class="cust-card-name">${c.name}</div>
+            <div class="cust-card-time">${c.timestamp || ''}</div>
+            <div class="cust-card-addr">📍 ${c.address}</div>
+            <div class="cust-card-items">Items: ${(c.services || []).join(', ') || 'General Browsing'}</div>
+            <div style="font-size: 11px; font-weight: 700; color: ${badgeColor}; background: ${badgeBg}; display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;">
+              ${c.status}
+            </div>
+            <a href="tel:${c.phone}" class="btn btn-green btn-sm" onclick="event.stopPropagation();">📞 Call (${c.phone})</a>
+          </div>`;
+      });
+    }
+
+    function openCustomerDetail(idx) {
+      const c = cachedCustomerList[idx];
+      if (!c) return;
+
+      document.getElementById('mCustName').innerText = c.name;
+      document.getElementById('mCustPhone').innerText = `Phone: ${c.phone}`;
+      document.getElementById('mCustAddr').innerText = c.address;
+      document.getElementById('mCustStatus').innerText = c.status;
+      document.getElementById('mCustItemsList').innerText = (c.services || []).join(", ") || "None specified";
+      document.getElementById('mCustNotes').innerText = c.instructions || "No special instructions provided.";
+      document.getElementById('mCustCallBtn').href = `tel:${c.phone}`;
+
+      const thumbBox = document.getElementById('mCustThumbnails');
+      thumbBox.innerHTML = '';
+
+      const itemsDetail = c.itemsDetail || [];
+      if (itemsDetail.length > 0) {
+        itemsDetail.forEach(item => {
+          if (item.img) {
+            thumbBox.innerHTML += `
+              <div style="text-align:center;">
+                <img src="${item.img}" style="width: 72px; height: 72px; object-fit: contain; background: #faf7f2; border-radius: 6px; border: 1.5px solid #ddd; cursor:pointer;" onclick="zoomImg('${item.img}')">
+                <div style="font-size: 11px; color: var(--text-muted); max-width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</div>
+              </div>`;
+          }
+        });
+      } else {
+        (c.services || []).forEach(svcName => {
+          const found = catalogCache.find(cat => cat.nameEn === svcName);
+          if (found && found.imageUrl) {
+            thumbBox.innerHTML += `
+              <div style="text-align:center;">
+                <img src="${found.imageUrl}" style="width: 72px; height: 72px; object-fit: contain; background: #faf7f2; border-radius: 6px; border: 1.5px solid #ddd; cursor:pointer;" onclick="zoomImg('${found.imageUrl}')">
+                <div style="font-size: 11px; color: var(--text-muted); max-width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${found.nameEn}</div>
+              </div>`;
+          }
+        });
+      }
+
+      document.getElementById('custDetailsModal').style.display = 'flex';
+    }
+
+    function closeCustModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('custDetailsModal').style.display = 'none';
+    }
+
+    async function deleteCustomer(phone, timestamp) {
+      if (!confirm("Delete customer record?")) return;
+      await fetch(`${API_URL}/customers`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, timestamp })
+      });
+      loadAdminInquiries();
+    }
+
+    async function loadFeedback() {
+      const res = await fetch(`${API_URL}/feedback`);
+      const items = await res.json();
+      const div = document.getElementById('feedbackList');
+      div.innerHTML = '';
+      items.forEach(fb => {
+        div.innerHTML += `
+          <div style="border: 1px solid var(--border-light); padding: 16px; border-radius: 12px; background: #fff; position: relative;">
+            <span style="position: absolute; top: 12px; right: 12px; cursor: pointer; color: #dc2626;" onclick="deleteFeedback('${fb.feedbackId}')">🗑</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding-right: 24px;">
+              <b style="font-size: 14.5px;">${fb.name}</b>
+              <span style="color: #eab308; font-size: 14px;">${'★'.repeat(fb.rating || 5)}</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Phone: ${fb.phone} | Date: ${fb.timestamp}</div>
+            <div style="font-size: 13px; background: #fdfbf8; border: 1px solid #eee; padding: 10px; border-radius: 6px;">${fb.message}</div>
+          </div>`;
+      });
+    }
+
+    async function deleteFeedback(feedbackId) {
+      if (!confirm("Delete this customer feedback?")) return;
+      await fetch(`${API_URL}/feedback`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ feedbackId })
+      });
+      showToast("Feedback deleted");
+      loadFeedback();
+    }
+
+    function renderWorkers() {
+      const sel = document.getElementById('wNameSelect');
+      const filterSel = document.getElementById('workerFilterSelect');
+      const chips = document.getElementById('workerChipsContainer');
+      sel.innerHTML = '';
+      filterSel.innerHTML = '<option value="ALL">All Workers & Self</option>';
+      chips.innerHTML = '';
+
+      registeredWorkers.forEach(w => {
+        sel.innerHTML += `<option value="${w}">${w}</option>`;
+        filterSel.innerHTML += `<option value="${w}">${w}</option>`;
+        chips.innerHTML += `<div style="background:#eee; padding:4px 10px; border-radius:14px; font-size:12px; font-weight:600;">${w}</div>`;
+      });
+    }
+
+    async function addWorkerProfile() {
+      const name = document.getElementById('newWorkerInput').value.trim();
+      if (!name || registeredWorkers.includes(name)) return;
+      registeredWorkers.push(name);
+      await fetch(`${API_URL}/workers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "create_worker", workerName: name })
+      });
+      document.getElementById('newWorkerInput').value = '';
+      renderWorkers();
+    }
+
+    async function addWorkerLog() {
+      const payload = {
+        action: "add_log",
+        workerName: document.getElementById('wNameSelect').value,
+        date: document.getElementById('wDate').value,
+        garment: document.getElementById('wGarmentInput').value || 'Blouse',
+        pieces: document.getElementById('wPieces').value,
+        pieceRate: document.getElementById('wRate').value,
+        actualPrice: document.getElementById('wCustomerPrice').value,
+        status: "UNPAID"
+      };
+      await fetch(`${API_URL}/workers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      loadLedger();
+    }
+
+    function toggleWorkerViewMode() {
+      isWorkerView = !isWorkerView;
+      const btn = document.getElementById('viewModeToggle');
+      btn.innerText = isWorkerView ? "🔓 Switch to Owner View" : "🔒 Switch to Worker View";
+
+      document.querySelectorAll('.owner-col').forEach(el => {
+        el.style.display = isWorkerView ? 'none' : '';
+      });
+
+      renderLedgerRows();
+    }
+
+    function filterLedgerByWorker(val) {
+      renderLedgerRows(val);
+    }
+
+    async function loadLedger() {
+      renderWorkers();
+      try {
+        const res = await fetch(`${API_URL}/workers`);
+        const items = await res.json();
+        rawLedgerData = items;
+
+        items.filter(i => i.type === 'PROFILE').forEach(p => {
+          if (!registeredWorkers.includes(p.workerName)) registeredWorkers.push(p.workerName);
+        });
+        renderWorkers();
+
+        const balances = {};
+        const profits = {};
+        let grandTotalProfit = 0;
+
+        registeredWorkers.forEach(w => {
+          balances[w] = { pieces: 0, pendingPay: 0 };
+          profits[w] = 0;
+        });
+
+        items.filter(i => i.type === 'WORK_ENTRY').forEach(row => {
+          const p = parseFloat(row.profit || 0);
+          grandTotalProfit += p;
+          if (profits[row.workerName] !== undefined) profits[row.workerName] += p;
+
+          if (row.status === 'UNPAID' && balances[row.workerName]) {
+            balances[row.workerName].pendingPay += parseFloat(row.totalWorkerPay || 0);
+            balances[row.workerName].pieces += parseFloat(row.pieces || 0);
+          }
+        });
+
+        document.getElementById('totalShopProfit').innerText = `₹${grandTotalProfit}`;
+        const pBox = document.getElementById('workerProfitBreakdown');
+        pBox.innerHTML = '';
+        for (const [w, profitVal] of Object.entries(profits)) {
+          pBox.innerHTML += `
+            <div style="border:1px solid #c7f0d8; padding:12px; border-radius:10px; background:#fff;">
+              <div style="font-weight:700;">${w}</div>
+              <div style="font-size:11px; color:#666;">Profit Generated:</div>
+              <div style="font-size:17px; font-weight:800; color:var(--accent-green);">+₹${profitVal}</div>
+            </div>`;
+        }
+
+        const bBox = document.getElementById('workerBalancesContainer');
+        bBox.innerHTML = '';
+        for (const [w, b] of Object.entries(balances)) {
+          bBox.innerHTML += `
+            <div style="border:1px solid var(--border-light); padding:12px; border-radius:10px; background:#fff;">
+              <div style="font-weight:700;">${w}</div>
+              <div style="font-size:11px; color:#666;">Total Stitched: ${b.pieces} pcs</div>
+              <div style="font-size:11px; color:#888; margin-top:6px;">PENDING PAYOUT</div>
+              <div style="font-size:17px; font-weight:800; color:var(--primary);">₹${b.pendingPay}</div>
+              <button class="btn btn-outline btn-sm" style="margin-top:8px; width:100%; justify-content:center;" onclick="settleWorker('${w}')">✔ Settle (Reset to ₹0)</button>
+            </div>`;
+        }
+
+        renderLedgerRows();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderLedgerRows(filterWorker = "ALL") {
+      const tbody = document.getElementById('ledgerRows');
+      tbody.innerHTML = '';
+
+      let filtered = rawLedgerData.filter(i => i.type === 'WORK_ENTRY');
+      if (filterWorker !== "ALL") {
+        filtered = filtered.filter(i => i.workerName === filterWorker);
+      }
+
+      filtered.forEach(row => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${row.date}</td>
+            <td><b>${row.workerName}</b></td>
+            <td>${row.garment}</td>
+            <td>${row.pieces}</td>
+            <td>₹${row.pieceRate}</td>
+            <td class="owner-col" style="${isWorkerView ? 'display:none;' : ''}">₹${row.actualPrice || 0}</td>
+            <td class="owner-col" style="${isWorkerView ? 'display:none;' : ''}; color:var(--accent-green); font-weight:700;">+₹${row.profit || 0}</td>
+            <td><span style="font-size:11px; padding:2px 6px; border-radius:4px; background:${row.status === 'PAID' ? '#dcfce7':'#fef3c7'}; color:${row.status === 'PAID' ? '#166534':'#92400e'}">${row.status}</span></td>
+            <td><button class="btn btn-outline btn-sm" onclick="deleteWorkLog('${row.workerName}', '${row.logId}')">🗑</button></td>
+          </tr>`;
+      });
+    }
+
+    async function deleteWorkLog(workerName, logId) {
+      if (!confirm("Delete log?")) return;
+      await fetch(`${API_URL}/workers`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ workerName, logId })
+      });
+      loadLedger();
+    }
+
+    async function settleWorker(workerName) {
+      await fetch(`${API_URL}/workers`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "settle_worker", workerName })
+      });
+      loadLedger();
+    }
+
+    async function addCatalogModel() {
+      const payload = {
+        nameEn: document.getElementById('mEn').value,
+        nameTe: document.getElementById('mTe').value,
+        category: document.getElementById('mCat').value,
+        price: document.getElementById('mPrice').value,
+        imageUrl: document.getElementById('mImg').value
+      };
+      await fetch(`${API_URL}/catalog`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      showToast("Model Published!");
+      document.getElementById('mEn').value = '';
+      document.getElementById('mTe').value = '';
+      document.getElementById('mPrice').value = '';
+      document.getElementById('mImg').value = '';
+      loadAdminCatalog();
+    }
+
+    async function loadAdminCatalog() {
+      const res = await fetch(`${API_URL}/catalog`);
+      const items = await res.json();
+      const div = document.getElementById('adminCatalogList');
+      div.innerHTML = '';
+      items.forEach(item => {
+        div.innerHTML += `
+          <div class="item-card">
+            <div class="img-wrapper"><img src="${item.imageUrl || 'https://via.placeholder.com/200'}" alt="${item.nameEn}"></div>
+            <div class="item-info">
+              <b>${item.nameEn}</b>
+              <div style="margin:4px 0;">₹${item.price}</div>
+              <button class="btn btn-outline btn-sm" style="color:red;" onclick="deleteCatalogModel('${item.category}', '${item.modelId}')">🗑 Delete Model</button>
+            </div>
+          </div>`;
+      });
+    }
+
+    async function deleteCatalogModel(category, modelId) {
+      if (!confirm("Delete this outfit?")) return;
+      await fetch(`${API_URL}/catalog`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ category, modelId })
+      });
+      loadAdminCatalog();
+    }
+
+    function toggleLang() {
+      isTelugu = !isTelugu;
+      document.getElementById('langBtn').innerText = isTelugu ? "English (EN)" : "తెలుగు (TE)";
+      document.getElementById('t_shopTitle').innerText = isTelugu ? "లక్ష్మి దేవి లేడీస్ టైలర్స్" : "LAKSHMI DEVI LADIES TAILORS";
+      document.getElementById('t_st1').innerText = isTelugu ? "కస్టమర్ వివరాలు" : "Customer Details";
+      document.getElementById('t_st2').innerText = isTelugu ? "సేవలను ఎంచుకోండి" : "Select Services";
+      document.getElementById('t_st3').innerText = isTelugu ? "ఫిట్టింగ్ & బుకింగ్" : "Fitting & Booking";
+      document.getElementById('t_welcome').innerText = isTelugu ? "కస్టమర్ రిజిస్ట్రేషన్" : "Customer Intake Form";
+      document.getElementById('t_welcomeSub').innerText = isTelugu ? "కలెక్షన్స్ చూడటానికి మరియు ఆర్డర్లు ఇవ్వడానికి వివరాలు నమోదు చేయండి." : "Enter your basic contact details to browse our design catalog and discuss custom orders with master tailor Smt. Lakshmi Devi.";
+      document.getElementById('t_nameLbl').innerText = isTelugu ? "పూర్తి పేరు *" : "Full Name *";
+      document.getElementById('t_phoneLbl').innerText = isTelugu ? "వాట్సాప్ / ఫోన్ నంబర్ *" : "WhatsApp / Phone Number *";
+      document.getElementById('t_addrLbl').innerText = isTelugu ? "గుంటూరులోని చిరునామా *" : "Area / Address in Guntur *";
+      document.getElementById('t_nextBtn').innerText = isTelugu ? "సేవలను వీక్షించండి →" : "Confirm & View Services →";
+      document.getElementById('t_selLbl').innerText = isTelugu ? "ఎంచుకున్నవి:" : "Total Selected:";
+      document.getElementById('t_reviewBtn').innerText = isTelugu ? "ఆర్డర్ సమీక్షించండి →" : "Review & Confirm Fitting →";
+      document.getElementById('t_sumTitle').innerText = isTelugu ? "ఆర్డర్ వివరాలు & టైలర్ సంప్రదింపులు" : "Order Summary & Tailor Consultation";
+      document.getElementById('t_sumSub').innerText = isTelugu ? "డెలివరీ తేదీ మరియు కొలతలు టైలర్ తో చర్చించబడతాయి." : "Review your selections. Master tailor Smt. Lakshmi Devi will confirm measurements directly.";
+      document.getElementById('t_notesLbl').innerText = isTelugu ? "ప్రత్యేక సూచనలు / అవసరాలు:" : "Special Fitting Instructions or Alteration Details:";
+      document.getElementById('t_waBtn').innerText = isTelugu ? "💬 వాట్సాప్ ద్వారా ఆర్డర్ పంపండి" : "💬 Confirm & Send Order via WhatsApp";
+      document.getElementById('t_cbBtn').innerText = isTelugu ? "🕒 తర్వాత కుట్టించుకుంటాను / కాల్ బ్యాక్" : "🕒 Selected but Not Now / Request Free Callback";
+      loadCatalog();
+    }
+  </script>
+</body>
+</html>
