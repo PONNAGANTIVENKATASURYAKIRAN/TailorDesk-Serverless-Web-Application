@@ -88,7 +88,7 @@ def lambda_handler(event, context):
             ExpiresIn=300,
         )
 
-        final_image_url = f"https://{BUCKET_NAME}.s3.us-east-1.amazonaws.com/{s3_key}"
+        final_image_url = f"https://d34hvud16ku84i.cloudfront.net/{s3_key}"
 
         return {
             "statusCode": 200,
