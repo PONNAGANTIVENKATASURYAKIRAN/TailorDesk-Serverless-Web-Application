@@ -1,1 +1,43 @@
+name: Deploy Lambdas to AWS
 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Package & Update TailorWorkerHandler
+        run: |
+          cd backend
+          cp lambda_worker_handler.py lambda_function.py
+          zip worker.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name TailorWorkerHandler \
+            --zip-file fileb://worker.zip
+          rm lambda_function.py worker.zip
+
+      - name: Package & Update TailorCustomerCatalogHandler
+        run: |
+          cd backend
+          cp lambda_customer_catalog_handler.py lambda_function.py
+          zip catalog.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name TailorCustomerCatalogHandler \
+            --zip-file fileb://catalog.zip
+          rm lambda_function.py catalog.zip
