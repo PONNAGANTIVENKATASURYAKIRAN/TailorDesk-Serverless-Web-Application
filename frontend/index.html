@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://tailordesk-portal-surya.s3.us-east-1.amazonaws.com/tailor.logo.png">
   <meta name="description" content="Expert Custom Tailoring and Boutique in Rajendranagar, Guntur. Designer Blouses, Lehengas, and Alterations.">
 
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
   <div class="container">
@@ -27,9 +27,9 @@
         </div>
       </div>
       
-      <!-- Responsive 2x2 on Mobile Grid -->
+      <!-- Responsive Actions Grid -->
       <div class="header-actions">
-        <a href="https://www.google.com/maps?q=16.312668,80.415438" target="_blank" class="btn btn-outline">
+        <a href="https://www.google.com/search?q=Lakshmidevi+Ladies+Tailors" target="_blank" class="btn btn-outline">
           📍 <span id="t_maps">Location</span>
         </a>
         <button class="btn btn-outline" onclick="toggleLang()" id="langBtn">తెలుగు (TE)</button>
@@ -75,7 +75,7 @@
       <!-- STEP 2: Catalog Selection -->
       <div id="step2View" style="display: none;">
         <div class="catalog-tabs">
-          <button class="cat-btn active" id="btnCatDresses" onclick="switchCategory('Dresses')">1. Stitched Dresses & Lehengas</button>
+          <button class="cat-btn active" id="btnCatDresses" onclick="switchCategory('Dresses')">1. All Types of Stitching</button>
           <button class="cat-btn" id="btnCatAlt" onclick="switchCategory('Alterations')">2. Alterations & Saree Falls</button>
           <button class="cat-btn" id="btnCatMaggam" onclick="switchCategory('Maggam')">3. Maggam & Aari Work</button>
           <button class="cat-btn" id="btnCatCoaching" onclick="switchCategory('Coaching')">4. Tailoring Classes</button>
@@ -278,7 +278,7 @@
       <!-- Admin Tab 3: Manage Catalog -->
       <div id="adminModelsView" style="display: none;">
         <div class="card">
-          <h4>Add New Dress Model</h4>
+          <h4>Add New Model</h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
             <div>
               <label>Name (English) *</label>
@@ -291,8 +291,8 @@
             <div>
               <label>Category *</label>
               <select id="mCat">
-                <option value="Dresses">1. Stitched Dresses</option>
-                <option value="Maggam">3. Maggam Work</option>
+                <option value="Dresses">1. All Types of Stitching</option>
+                <option value="Maggam">3. Maggam & Aari Work</option>
               </select>
             </div>
             <div>
@@ -300,8 +300,8 @@
               <input type="number" id="mPrice">
             </div>
             <div style="grid-column: span 2;">
-              <label>Image URL *</label>
-              <input type="text" id="mImg">
+              <label>Upload Photo *</label>
+              <input type="file" id="mFile" accept="image/*">
             </div>
           </div>
           <button class="btn btn-maroon" style="margin-top: 14px; width: 100%; justify-content: center;" onclick="addCatalogModel()">+ Publish Model</button>
@@ -1022,24 +1022,63 @@
     }
 
     async function addCatalogModel() {
-      const payload = {
-        nameEn: document.getElementById('mEn').value,
-        nameTe: document.getElementById('mTe').value,
-        category: document.getElementById('mCat').value,
-        price: document.getElementById('mPrice').value,
-        imageUrl: document.getElementById('mImg').value
-      };
-      await fetch(`${API_URL}/catalog`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      showToast("Model Published!");
-      document.getElementById('mEn').value = '';
-      document.getElementById('mTe').value = '';
-      document.getElementById('mPrice').value = '';
-      document.getElementById('mImg').value = '';
-      loadAdminCatalog();
+      const nameEn = document.getElementById('mEn').value.trim();
+      const nameTe = document.getElementById('mTe').value.trim();
+      const category = document.getElementById('mCat').value;
+      const price = document.getElementById('mPrice').value.trim();
+      const fileInput = document.getElementById('mFile');
+      const file = fileInput.files[0];
+
+      if (!nameEn || !price || !file) {
+        showToast("Please fill in Name, Price, and select a photo!");
+        return;
+      }
+
+      showToast("Uploading dress photo...");
+
+      try {
+        // 1. Get Pre-Signed URL with category prefix
+        const urlResp = await fetch(`${API_URL}/catalog/upload-url`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            filename: file.name,
+            contentType: file.type || "image/jpeg",
+            category: category
+          })
+        });
+        const { uploadUrl, imageUrl } = await urlResp.json();
+
+        // 2. Upload file directly to S3
+        await fetch(uploadUrl, {
+          method: "PUT",
+          headers: { "Content-Type": file.type || "image/jpeg" },
+          body: file
+        });
+
+        // 3. Save model metadata to DynamoDB
+        await fetch(`${API_URL}/catalog`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nameEn,
+            nameTe,
+            category,
+            price,
+            imageUrl
+          })
+        });
+
+        showToast("Model published successfully!");
+        document.getElementById('mEn').value = '';
+        document.getElementById('mTe').value = '';
+        document.getElementById('mPrice').value = '';
+        fileInput.value = '';
+        loadAdminCatalog();
+      } catch (err) {
+        console.error(err);
+        showToast("Upload failed, please try again.");
+      }
     }
 
     async function loadAdminCatalog() {
@@ -1090,6 +1129,13 @@
       document.getElementById('t_notesLbl').innerText = isTelugu ? "ప్రత్యేక సూచనలు:" : "Special Fitting Instructions or Alteration Details:";
       document.getElementById('t_waBtn').innerText = isTelugu ? "💬 వాట్సాప్ ద్వారా పంపండి" : "💬 Confirm & Send via WhatsApp";
       document.getElementById('t_cbBtn').innerText = isTelugu ? "🕒 కాల్ బ్యాక్" : "🕒 Request Free Callback";
+
+      // Update button text for bilingual support
+      document.getElementById('btnCatDresses').innerText = isTelugu ? "1. అన్ని రకాల కుట్లు & మోడల్స్" : "1. All Types of Stitching";
+      document.getElementById('btnCatAlt').innerText = isTelugu ? "2. ఆల్టరేషన్స్ & ఫాల్స్" : "2. Alterations & Saree Falls";
+      document.getElementById('btnCatMaggam').innerText = isTelugu ? "3. మగ్గం & ఆరి వర్క్" : "3. Maggam & Aari Work";
+      document.getElementById('btnCatCoaching').innerText = isTelugu ? "4. టైలరింగ్ క్లాసులు" : "4. Tailoring Classes";
+
       loadCatalog();
     }
   </script>

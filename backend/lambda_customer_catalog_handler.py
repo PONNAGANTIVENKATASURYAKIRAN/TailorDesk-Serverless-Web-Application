@@ -3,9 +3,15 @@ import boto3
 import uuid
 from decimal import Decimal
 from datetime import datetime
+from botocore.config import Config
 
 dynamodb = boto3.resource("dynamodb")
 sns = boto3.client("sns", region_name="us-east-1")
+s3_client = boto3.client(
+    "s3", region_name="us-east-1", config=Config(signature_version="s3v4")
+)
+
+BUCKET_NAME = "tailordesk-portal-surya"
 
 catalog_table = dynamodb.Table("TailorCatalog")
 customer_table = dynamodb.Table("TailorCustomers")
@@ -55,6 +61,40 @@ def lambda_handler(event, context):
 
     path = event.get("path", "")
     method = event.get("httpMethod")
+
+    # PRESIGNED UPLOAD ROUTE WITH CATEGORY FOLDER SEPARATION
+    if "/catalog/upload-url" in path and method == "POST":
+        body = json.loads(event.get("body", "{}"))
+        filename = body.get("filename", f"{uuid.uuid4().hex[:8]}.jpg")
+        content_type = body.get("contentType", "image/jpeg")
+        category = body.get("category", "Dresses")
+
+        # Route to dedicated S3 folder
+        if category == "Maggam":
+            folder = "Maggam_Images"
+        else:
+            folder = "Dresses_Images"
+
+        clean_filename = f"catalog-{uuid.uuid4().hex[:6]}-{filename.replace(' ', '_')}"
+        s3_key = f"{folder}/{clean_filename}"
+
+        upload_url = s3_client.generate_presigned_url(
+            ClientMethod="put_object",
+            Params={
+                "Bucket": BUCKET_NAME,
+                "Key": s3_key,
+                "ContentType": content_type,
+            },
+            ExpiresIn=300,
+        )
+
+        final_image_url = f"https://{BUCKET_NAME}.s3.us-east-1.amazonaws.com/{s3_key}"
+
+        return {
+            "statusCode": 200,
+            "headers": headers,
+            "body": json.dumps({"uploadUrl": upload_url, "imageUrl": final_image_url}),
+        }
 
     # CATALOG ROUTES
     if "/catalog" in path:
