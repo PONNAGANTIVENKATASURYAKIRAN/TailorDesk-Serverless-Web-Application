@@ -5,7 +5,6 @@ from decimal import Decimal
 from datetime import datetime
 
 dynamodb = boto3.resource("dynamodb")
-# Initialize SNS client
 sns = boto3.client("sns", region_name="us-east-1")
 
 catalog_table = dynamodb.Table("TailorCatalog")
@@ -22,7 +21,6 @@ class DecimalEncoder(json.JSONEncoder):
 
 def send_customer_sms(phone, message):
     try:
-        # Standardize Indian phone number format with +91 country code
         clean_phone = phone.strip().replace(" ", "").replace("-", "")
         if not clean_phone.startswith("+"):
             if clean_phone.startswith("91") and len(clean_phone) == 12:
@@ -128,7 +126,7 @@ def lambda_handler(event, context):
                 "body": json.dumps({"message": "Feedback deleted"}),
             }
 
-    # CUSTOMER ROUTES (With Automatic SMS Delivery)
+    # CUSTOMER ROUTES
     if "/customers" in path:
         if method == "GET":
             items = customer_table.scan().get("Items", [])
@@ -152,7 +150,6 @@ def lambda_handler(event, context):
             status = body.get("status", "3. Just Browsed")
             timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-            # Deduplicate records for this phone number
             existing = customer_table.query(
                 KeyConditionExpression=boto3.dynamodb.conditions.Key("phone").eq(phone)
             ).get("Items", [])
@@ -173,7 +170,6 @@ def lambda_handler(event, context):
             }
             customer_table.put_item(Item=item)
 
-            # Send automated transactional SMS based on order status
             if "1. Selected & Reached" in status or "Stitching" in status:
                 sms_text = f"Namaste {name}, your order has been received at Lakshmi Devi Ladies Tailors. We will reach out shortly for fitting confirmation. Call: 8008717360."
                 send_customer_sms(phone, sms_text)

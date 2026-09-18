@@ -30,7 +30,6 @@ def lambda_handler(event, context):
         body = json.loads(event.get("body", "{}"))
         action = body.get("action", "add_log")
 
-        # 1. Reset pending payout for a specific worker
         if action == "settle_worker":
             worker_name = body.get("workerName")
             resp = table.query(
@@ -52,7 +51,6 @@ def lambda_handler(event, context):
                 "body": json.dumps({"message": "Worker settled"}),
             }
 
-        # 2. Add Worker Profile
         if action == "create_worker":
             worker_name = body.get("workerName")
             table.put_item(
@@ -64,7 +62,6 @@ def lambda_handler(event, context):
                 "body": json.dumps({"message": "Worker created"}),
             }
 
-        # 3. Regular Daily Work Log with Profit Calculation
         worker_name = body.get("workerName", "Self (Smt. Lakshmi Devi)")
         pieces = Decimal(str(body.get("pieces", 1)))
         piece_rate = Decimal(str(body.get("pieceRate", 0)))
@@ -103,7 +100,6 @@ def lambda_handler(event, context):
             "body": json.dumps(items, cls=DecimalEncoder),
         }
 
-    # Delete any single work entry or profile
     if method == "DELETE":
         body = json.loads(event.get("body", "{}"))
         table.delete_item(
