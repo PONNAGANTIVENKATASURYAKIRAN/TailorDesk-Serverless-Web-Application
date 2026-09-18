@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://tailordesk-portal-surya.s3.us-east-1.amazonaws.com/tailor.logo.png">
   <meta name="description" content="Expert Custom Tailoring and Boutique in Rajendranagar, Guntur. Designer Blouses, Lehengas, and Alterations.">
 
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <div class="container">
@@ -26,20 +26,28 @@
           <p id="t_shopSub">Rajendranagar, 1st Line, Guntur | 20+ Yrs Exp</p>
         </div>
       </div>
+      
+      <!-- Responsive 2x2 on Mobile Grid -->
       <div class="header-actions">
-        <a href="https://www.google.com/maps?q=16.312668,80.415438" target="_blank" class="btn btn-outline">📍 <span id="t_maps">Shop Location</span></a>
+        <a href="https://www.google.com/maps?q=16.312668,80.415438" target="_blank" class="btn btn-outline">
+          📍 <span id="t_maps">Location</span>
+        </a>
         <button class="btn btn-outline" onclick="toggleLang()" id="langBtn">తెలుగు (TE)</button>
-        <button class="btn btn-outline" onclick="openOwnerModal()">🔒 <span id="t_owner">Owner</span></button>
-        <a href="tel:8008717360" class="btn btn-green">📞 8008717360</a>
+        <button class="btn btn-outline" onclick="openOwnerModal()">
+          🔒 <span id="t_owner">Owner</span>
+        </button>
+        <a href="tel:8008717360" class="btn btn-green">
+          📞 8008717360
+        </a>
       </div>
     </div>
 
     <!-- CUSTOMER BOOKING PORTAL -->
     <div id="customerPortal">
       <div class="stepper">
-        <div class="step active" id="st1Ind" onclick="navStep(1)"><span class="step-circle">1</span> <span id="t_st1">Customer Details</span></div>
-        <div class="step" id="st2Ind" onclick="navStep(2)"><span class="step-circle">2</span> <span id="t_st2">Select Services</span></div>
-        <div class="step" id="st3Ind" onclick="navStep(3)"><span class="step-circle">3</span> <span id="t_st3">Fitting & Booking</span></div>
+        <div class="step active" id="st1Ind" onclick="navStep(1)"><span class="step-circle">1</span> <span id="t_st1">Details</span></div>
+        <div class="step" id="st2Ind" onclick="navStep(2)"><span class="step-circle">2</span> <span id="t_st2">Services</span></div>
+        <div class="step" id="st3Ind" onclick="navStep(3)"><span class="step-circle">3</span> <span id="t_st3">Booking</span></div>
       </div>
 
       <!-- STEP 1: Details Intake -->
@@ -83,8 +91,8 @@
             <div style="font-weight: 800; font-size: 16px; color: var(--primary);" id="selectedCount">0 Items</div>
           </div>
           <div style="display: flex; gap: 8px;">
-            <button class="btn btn-outline" onclick="navStep(1)">← Back to Details</button>
-            <button class="btn btn-maroon" onclick="goToStep3()" id="t_reviewBtn">Review & Confirm Fitting →</button>
+            <button class="btn btn-outline" onclick="navStep(1)">← Back</button>
+            <button class="btn btn-maroon" onclick="goToStep3()" id="t_reviewBtn">Review & Confirm →</button>
           </div>
         </div>
       </div>
@@ -109,9 +117,9 @@
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 10px;">
-            <button class="btn btn-green" style="justify-content: center; padding: 14px; font-size: 15px;" onclick="sendWhatsAppOrder()" id="t_waBtn">💬 Confirm & Send Order via WhatsApp</button>
-            <a href="tel:8008717360" class="btn btn-outline" style="justify-content: center; padding: 11px;">📞 Call Master Tailor Directly (8008717360)</a>
-            <button class="btn btn-outline" style="justify-content: center; background: #fff8f0; color: #a34e00; border-color: #ffd8a8;" onclick="submitOrder('2. Selected but Not Now')" id="t_cbBtn">🕒 Selected but Not Now / Request Free Callback</button>
+            <button class="btn btn-green" style="justify-content: center; padding: 14px; font-size: 15px;" onclick="sendWhatsAppOrder()" id="t_waBtn">💬 Confirm & Send via WhatsApp</button>
+            <a href="tel:8008717360" class="btn btn-outline" style="justify-content: center; padding: 11px;">📞 Call Master Tailor Directly</a>
+            <button class="btn btn-outline" style="justify-content: center; background: #fff8f0; color: #a34e00; border-color: #ffd8a8;" onclick="submitOrder('2. Selected but Not Now')" id="t_cbBtn">🕒 Request Free Callback</button>
             <button class="btn btn-outline" style="justify-content: center; margin-top: 4px;" onclick="navStep(2)">← Modify Selected Services</button>
           </div>
         </div>
@@ -140,16 +148,16 @@
 
     <!-- OWNER ADMINISTRATION PORTAL -->
     <div id="ownerPortal" style="display: none;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); font-size: 22px;">Shop Administration & Daily Ledger</h3>
-        <button class="btn btn-outline btn-sm" onclick="logoutOwner()">View Live Site / Logout ✕</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); font-size: 20px;">Shop Administration</h3>
+        <button class="btn btn-outline btn-sm" onclick="logoutOwner()">View Live Site ✕</button>
       </div>
 
       <div class="catalog-tabs">
-        <button class="cat-btn active" id="tabInquiries" onclick="switchAdminTab('inquiries')">📇 Customer Entry Book</button>
-        <button class="cat-btn" id="tabLedger" onclick="switchAdminTab('ledger')">👥 Workers & Daily Work Tracker</button>
-        <button class="cat-btn" id="tabModels" onclick="switchAdminTab('models')">👗 Manage Dress Models</button>
-        <button class="cat-btn" id="tabFeedback" onclick="switchAdminTab('feedback')">💬 Customer Feedback</button>
+        <button class="cat-btn active" id="tabInquiries" onclick="switchAdminTab('inquiries')">📇 Inquiries</button>
+        <button class="cat-btn" id="tabLedger" onclick="switchAdminTab('ledger')">👥 Ledger</button>
+        <button class="cat-btn" id="tabModels" onclick="switchAdminTab('models')">👗 Models</button>
+        <button class="cat-btn" id="tabFeedback" onclick="switchAdminTab('feedback')">💬 Feedback</button>
       </div>
 
       <!-- Admin Tab 1: Customer Entries -->
@@ -157,7 +165,7 @@
         <div class="card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <h4>Registered Customer Entries</h4>
-            <button class="btn btn-outline btn-sm" onclick="loadAdminInquiries()">🔄 Refresh Entries</button>
+            <button class="btn btn-outline btn-sm" onclick="loadAdminInquiries()">🔄 Refresh</button>
           </div>
           <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
             Filter customers by order stage. Click any card to inspect chosen dress photos and fitting details.
@@ -165,16 +173,16 @@
           
           <div class="customer-filter-bar">
             <button class="cust-filter-btn btn-all active" id="fBtnAll" onclick="setCustomerFilter('ALL')">
-              Show All <span class="badge" id="countAll">0</span>
+              All <span class="badge" id="countAll">0</span>
             </button>
             <button class="cust-filter-btn btn-stitching" id="fBtnStitching" onclick="setCustomerFilter('STITCHING')">
-              ✂ 1. Selected & Reached to Stitching <span class="badge" id="countStitching">0</span>
+              ✂ Stitching <span class="badge" id="countStitching">0</span>
             </button>
             <button class="cust-filter-btn btn-callback" id="fBtnCallback" onclick="setCustomerFilter('CALLBACK')">
-              🕒 2. Selected but Not Now <span class="badge" id="countCallback">0</span>
+              🕒 Callback <span class="badge" id="countCallback">0</span>
             </button>
             <button class="cust-filter-btn btn-browsed" id="fBtnBrowsed" onclick="setCustomerFilter('BROWSED')">
-              👁 3. Just Browsed <span class="badge" id="countBrowsed">0</span>
+              👁 Browsed <span class="badge" id="countBrowsed">0</span>
             </button>
           </div>
 
@@ -186,16 +194,16 @@
       <div id="adminLedgerView" style="display: none;">
         <div class="card">
           <h4>👤 Worker Profiles (Team Members)</h4>
-          <div style="display: flex; gap: 10px; margin-top: 12px;">
-            <input type="text" id="newWorkerInput" placeholder="Worker full name">
-            <button class="btn btn-maroon" onclick="addWorkerProfile()">+ Add Worker</button>
+          <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+            <input type="text" id="newWorkerInput" placeholder="Worker name" style="flex: 1; min-width: 160px;">
+            <button class="btn btn-maroon" onclick="addWorkerProfile()">+ Add</button>
           </div>
           <div class="worker-chips" id="workerChipsContainer" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;"></div>
         </div>
 
         <div class="card">
           <h4>✔ Record Daily Stitched Item</h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 14px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 14px;">
             <div>
               <label>Worker</label>
               <select id="wNameSelect"></select>
@@ -205,44 +213,44 @@
               <input type="date" id="wDate">
             </div>
             <div>
-              <label>Garment Category</label>
+              <label>Garment</label>
               <input type="text" id="wGarmentInput">
             </div>
             <div>
-              <label>Pieces Stitched</label>
+              <label>Pieces</label>
               <input type="number" id="wPieces" value="1" min="1">
             </div>
             <div>
-              <label>Piece Rate to Worker (₹)</label>
+              <label>Piece Rate (₹)</label>
               <input type="number" id="wRate" value="220">
             </div>
             <div>
-              <label>Customer Price (₹)</label>
+              <label>Price (₹)</label>
               <input type="number" id="wCustomerPrice" value="350">
             </div>
           </div>
-          <button class="btn btn-green" style="margin-top: 16px;" onclick="addWorkerLog()">+ Add to Daily Work Log</button>
+          <button class="btn btn-green" style="margin-top: 14px; width: 100%; justify-content: center;" onclick="addWorkerLog()">+ Add to Log</button>
         </div>
 
         <div class="card" style="background: #f0fdf4; border: 1.5px solid #bbf7d0;">
-          <h4>💰 Shop Earnings & Profit Tracker (Owner View)</h4>
+          <h4>💰 Shop Earnings & Profit Tracker</h4>
           <div style="margin-top: 8px;">Total Profit: <b id="totalShopProfit" style="font-size: 22px; color: var(--accent-green);">₹0</b></div>
           <div class="grid" id="workerProfitBreakdown" style="margin-top: 14px;"></div>
         </div>
 
         <div class="card">
-          <h4>💳 Worker Pending Balances & Settlements</h4>
+          <h4>💳 Worker Balances</h4>
           <div class="grid" id="workerBalancesContainer" style="margin-top: 14px;"></div>
         </div>
 
         <div class="card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-            <h4>Daily Work History Register</h4>
-            <div style="display: flex; gap: 10px; align-items: center;">
-              <select id="workerFilterSelect" style="width: auto; padding: 6px 12px;" onchange="filterLedgerByWorker(this.value)">
-                <option value="ALL">All Workers & Self</option>
+            <h4>Daily Register</h4>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <select id="workerFilterSelect" style="width: auto; padding: 6px 8px;" onchange="filterLedgerByWorker(this.value)">
+                <option value="ALL">All Workers</option>
               </select>
-              <button class="btn btn-outline btn-sm" id="viewModeToggle" onclick="toggleWorkerViewMode()">🔒 Switch to Worker View</button>
+              <button class="btn btn-outline btn-sm" id="viewModeToggle" onclick="toggleWorkerViewMode()">🔒 Worker View</button>
             </div>
           </div>
 
@@ -255,7 +263,7 @@
                   <th>Garment</th>
                   <th>Pieces</th>
                   <th>Worker Pay (₹)</th>
-                  <th class="owner-col">Cust. Price (₹)</th>
+                  <th class="owner-col">Price (₹)</th>
                   <th class="owner-col">Profit (₹)</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -271,20 +279,20 @@
       <div id="adminModelsView" style="display: none;">
         <div class="card">
           <h4>Add New Dress Model</h4>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
             <div>
-              <label>Model Name (English) *</label>
+              <label>Name (English) *</label>
               <input type="text" id="mEn">
             </div>
             <div>
-              <label>Model Name (Telugu) *</label>
+              <label>Name (Telugu) *</label>
               <input type="text" id="mTe">
             </div>
             <div>
               <label>Category *</label>
               <select id="mCat">
-                <option value="Dresses">1. Stitched Dresses & Lehengas</option>
-                <option value="Maggam">3. Maggam & Aari Work</option>
+                <option value="Dresses">1. Stitched Dresses</option>
+                <option value="Maggam">3. Maggam Work</option>
               </select>
             </div>
             <div>
@@ -296,7 +304,7 @@
               <input type="text" id="mImg">
             </div>
           </div>
-          <button class="btn btn-maroon" style="margin-top: 16px;" onclick="addCatalogModel()">+ Publish Outfit to Live Catalog</button>
+          <button class="btn btn-maroon" style="margin-top: 14px; width: 100%; justify-content: center;" onclick="addCatalogModel()">+ Publish Model</button>
         </div>
         <div class="card">
           <h4>Current Models</h4>
@@ -308,34 +316,34 @@
       <div id="adminFeedbackView" style="display: none;">
         <div class="card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <h4>Customer Reviews & Feedback</h4>
-            <button class="btn btn-outline btn-sm" onclick="loadFeedback()">🔄 Refresh Feedback</button>
+            <h4>Feedback</h4>
+            <button class="btn btn-outline btn-sm" onclick="loadFeedback()">🔄 Refresh</button>
           </div>
           <div id="feedbackList" class="grid"></div>
         </div>
       </div>
     </div>
 
-    <!-- Customer Order Details Modal -->
+    <!-- Customer Details Modal -->
     <div id="custDetailsModal" class="modal-overlay" onclick="closeCustModal(event)">
       <div class="modal-content" onclick="event.stopPropagation()">
         <h4 id="mCustName" style="font-family: 'Playfair Display', serif; font-size: 19px; color: var(--primary);"></h4>
         <div style="font-size: 13px; color: var(--text-muted); margin: 4px 0 12px 0;" id="mCustPhone"></div>
-        <div style="font-size: 13px; margin-bottom: 10px;"><b>Address:</b> <span id="mCustAddr"></span></div>
-        <div style="font-size: 13px; margin-bottom: 10px;"><b>Status:</b> <span id="mCustStatus" style="color: #b45309; font-weight: 700;"></span></div>
+        <div style="font-size: 13px; margin-bottom: 8px;"><b>Address:</b> <span id="mCustAddr"></span></div>
+        <div style="font-size: 13px; margin-bottom: 8px;"><b>Status:</b> <span id="mCustStatus" style="color: #b45309; font-weight: 700;"></span></div>
         
-        <div style="margin-top: 14px;">
-          <label style="font-size: 12.5px; color: var(--text-muted);">Chosen Items / Outfits (Click image to zoom):</label>
-          <div id="mCustItemsList" style="font-size: 13.5px; font-weight: 700; color: var(--primary); margin-bottom: 10px;"></div>
-          <div id="mCustThumbnails" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;"></div>
+        <div style="margin-top: 12px;">
+          <label style="font-size: 12.5px; color: var(--text-muted);">Chosen Items:</label>
+          <div id="mCustItemsList" style="font-size: 13.5px; font-weight: 700; color: var(--primary); margin-bottom: 8px;"></div>
+          <div id="mCustThumbnails" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;"></div>
         </div>
 
-        <div style="margin-top: 10px;">
-          <label style="font-size: 12.5px; color: var(--text-muted);">Fitting Instructions / Notes:</label>
+        <div style="margin-top: 8px;">
+          <label style="font-size: 12.5px; color: var(--text-muted);">Fitting Notes:</label>
           <div id="mCustNotes" style="font-size: 13px; background: #faf8f5; border: 1px solid var(--border-light); padding: 10px; border-radius: 6px;"></div>
         </div>
 
-        <div style="display: flex; gap: 8px; margin-top: 18px;">
+        <div style="display: flex; gap: 8px; margin-top: 16px;">
           <a id="mCustCallBtn" href="#" class="btn btn-green btn-sm" style="flex-grow: 1; justify-content: center;">📞 Call Customer</a>
           <button class="btn btn-outline btn-sm" onclick="closeCustModal()">Close</button>
         </div>
@@ -505,7 +513,7 @@
 
         if (currentCategory === 'Alterations') {
           container.innerHTML = `
-            <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 12px; border: 1.5px solid var(--border-light);">
+            <div style="grid-column: 1/-1; background: white; padding: 20px; border-radius: 12px; border: 1.5px solid var(--border-light);">
               <h4>✂ Alterations, Saree Falls & Quick Fittings</h4>
               <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0 12px 0;">Blouse tightening/loosening, saree falls, pico, dress fittings, and zip replacements.</p>
               <div class="form-group">
@@ -519,7 +527,7 @@
 
         if (currentCategory === 'Coaching') {
           container.innerHTML = `
-            <div style="grid-column: span 2; background: white; padding: 20px; border-radius: 12px; border: 1.5px solid var(--border-light);">
+            <div style="grid-column: 1/-1; background: white; padding: 20px; border-radius: 12px; border: 1.5px solid var(--border-light);">
               <h4>🎓 Ladies Tailoring & Stitching Classes in Guntur</h4>
               <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0 12px 0;">Hands-on practical machine training for dress cutting, blouse stitching, and aari maggam embroidery from Smt. Lakshmi Devi.</p>
               <button class="btn btn-outline" onclick="selectItem('Tailoring Coaching Classes', '')">+ Select Coaching Inquiry</button>
@@ -893,7 +901,7 @@
     function toggleWorkerViewMode() {
       isWorkerView = !isWorkerView;
       const btn = document.getElementById('viewModeToggle');
-      btn.innerText = isWorkerView ? "🔓 Switch to Owner View" : "🔒 Switch to Worker View";
+      btn.innerText = isWorkerView ? "🔓 Owner View" : "🔒 Worker View";
 
       document.querySelectorAll('.owner-col').forEach(el => {
         el.style.display = isWorkerView ? 'none' : '';
@@ -945,7 +953,7 @@
           pBox.innerHTML += `
             <div style="border:1px solid #c7f0d8; padding:12px; border-radius:10px; background:#fff;">
               <div style="font-weight:700;">${w}</div>
-              <div style="font-size:11px; color:#666;">Profit Generated:</div>
+              <div style="font-size:11px; color:#666;">Profit:</div>
               <div style="font-size:17px; font-weight:800; color:var(--accent-green);">+₹${profitVal}</div>
             </div>`;
         }
@@ -956,10 +964,10 @@
           bBox.innerHTML += `
             <div style="border:1px solid var(--border-light); padding:12px; border-radius:10px; background:#fff;">
               <div style="font-weight:700;">${w}</div>
-              <div style="font-size:11px; color:#666;">Total Stitched: ${b.pieces} pcs</div>
-              <div style="font-size:11px; color:#888; margin-top:6px;">PENDING PAYOUT</div>
+              <div style="font-size:11px; color:#666;">Stitched: ${b.pieces} pcs</div>
+              <div style="font-size:11px; color:#888; margin-top:6px;">PENDING</div>
               <div style="font-size:17px; font-weight:800; color:var(--primary);">₹${b.pendingPay}</div>
-              <button class="btn btn-outline btn-sm" style="margin-top:8px; width:100%; justify-content:center;" onclick="settleWorker('${w}')">✔ Settle (Reset to ₹0)</button>
+              <button class="btn btn-outline btn-sm" style="margin-top:8px; width:100%; justify-content:center;" onclick="settleWorker('${w}')">✔ Settle</button>
             </div>`;
         }
 
@@ -1046,7 +1054,7 @@
             <div class="item-info">
               <b>${item.nameEn}</b>
               <div style="margin:4px 0;">₹${item.price}</div>
-              <button class="btn btn-outline btn-sm" style="color:red;" onclick="deleteCatalogModel('${item.category}', '${item.modelId}')">🗑 Delete Model</button>
+              <button class="btn btn-outline btn-sm" style="color:red;" onclick="deleteCatalogModel('${item.category}', '${item.modelId}')">🗑 Delete</button>
             </div>
           </div>`;
       });
@@ -1066,9 +1074,9 @@
       isTelugu = !isTelugu;
       document.getElementById('langBtn').innerText = isTelugu ? "English (EN)" : "తెలుగు (TE)";
       document.getElementById('t_shopTitle').innerText = isTelugu ? "లక్ష్మి దేవి లేడీస్ టైలర్స్" : "LAKSHMI DEVI LADIES TAILORS";
-      document.getElementById('t_st1').innerText = isTelugu ? "కస్టమర్ వివరాలు" : "Customer Details";
-      document.getElementById('t_st2').innerText = isTelugu ? "సేవలను ఎంచుకోండి" : "Select Services";
-      document.getElementById('t_st3').innerText = isTelugu ? "ఫిట్టింగ్ & బుకింగ్" : "Fitting & Booking";
+      document.getElementById('t_st1').innerText = isTelugu ? "వివరాలు" : "Details";
+      document.getElementById('t_st2').innerText = isTelugu ? "సేవలు" : "Services";
+      document.getElementById('t_st3').innerText = isTelugu ? "బుకింగ్" : "Booking";
       document.getElementById('t_welcome').innerText = isTelugu ? "కస్టమర్ రిజిస్ట్రేషన్" : "Customer Intake Form";
       document.getElementById('t_welcomeSub').innerText = isTelugu ? "కలెక్షన్స్ చూడటానికి మరియు ఆర్డర్లు ఇవ్వడానికి వివరాలు నమోదు చేయండి." : "Enter your basic contact details to browse our design catalog and discuss custom orders with master tailor Smt. Lakshmi Devi.";
       document.getElementById('t_nameLbl').innerText = isTelugu ? "పూర్తి పేరు *" : "Full Name *";
@@ -1076,12 +1084,12 @@
       document.getElementById('t_addrLbl').innerText = isTelugu ? "గుంటూరులోని చిరునామా *" : "Area / Address in Guntur *";
       document.getElementById('t_nextBtn').innerText = isTelugu ? "సేవలను వీక్షించండి →" : "Confirm & View Services →";
       document.getElementById('t_selLbl').innerText = isTelugu ? "ఎంచుకున్నవి:" : "Total Selected:";
-      document.getElementById('t_reviewBtn').innerText = isTelugu ? "ఆర్డర్ సమీక్షించండి →" : "Review & Confirm Fitting →";
-      document.getElementById('t_sumTitle').innerText = isTelugu ? "ఆర్డర్ వివరాలు & టైలర్ సంప్రదింపులు" : "Order Summary & Tailor Consultation";
-      document.getElementById('t_sumSub').innerText = isTelugu ? "డెలివరీ తేదీ మరియు కొలతలు టైలర్ తో చర్చించబడతాయి." : "Review your selections. Master tailor Smt. Lakshmi Devi will confirm measurements directly.";
-      document.getElementById('t_notesLbl').innerText = isTelugu ? "ప్రత్యేక సూచనలు / అవసరాలు:" : "Special Fitting Instructions or Alteration Details:";
-      document.getElementById('t_waBtn').innerText = isTelugu ? "💬 వాట్సాప్ ద్వారా ఆర్డర్ పంపండి" : "💬 Confirm & Send Order via WhatsApp";
-      document.getElementById('t_cbBtn').innerText = isTelugu ? "🕒 తర్వాత కుట్టించుకుంటాను / కాల్ బ్యాక్" : "🕒 Selected but Not Now / Request Free Callback";
+      document.getElementById('t_reviewBtn').innerText = isTelugu ? "ఆర్డర్ సమీక్షించండి →" : "Review & Confirm →";
+      document.getElementById('t_sumTitle').innerText = isTelugu ? "ఆర్డర్ వివరాలు" : "Order Summary & Tailor Consultation";
+      document.getElementById('t_sumSub').innerText = isTelugu ? "డెలివరీ తేదీ మరియు కొలతలు టైలర్ తో చర్చించబడతాయి." : "Review your selections. Master tailor Smt. Lakshmi Devi will confirm exact measurements.";
+      document.getElementById('t_notesLbl').innerText = isTelugu ? "ప్రత్యేక సూచనలు:" : "Special Fitting Instructions or Alteration Details:";
+      document.getElementById('t_waBtn').innerText = isTelugu ? "💬 వాట్సాప్ ద్వారా పంపండి" : "💬 Confirm & Send via WhatsApp";
+      document.getElementById('t_cbBtn').innerText = isTelugu ? "🕒 కాల్ బ్యాక్" : "🕒 Request Free Callback";
       loadCatalog();
     }
   </script>
