@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://tailordesk-portal-surya.s3.us-east-1.amazonaws.com/tailor.logo.png">
   <meta name="description" content="Expert Custom Tailoring and Boutique in Rajendranagar, Guntur. Designer Blouses, Lehengas, and Alterations.">
 
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
   <div class="container">
@@ -1034,30 +1034,38 @@
         return;
       }
 
-      showToast("Uploading dress photo...");
+      showToast("Requesting upload ticket...");
 
       try {
-        // 1. Get Pre-Signed URL with category prefix
+        // 1. Get pre-signed URL from Lambda
         const urlResp = await fetch(`${API_URL}/catalog/upload-url`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             filename: file.name,
-            contentType: file.type || "image/jpeg",
             category: category
           })
         });
+
+        if (!urlResp.ok) throw new Error("Failed to get presigned upload URL");
         const { uploadUrl, imageUrl } = await urlResp.json();
 
-        // 2. Upload file directly to S3
-        await fetch(uploadUrl, {
+        showToast("Uploading photo to S3...");
+
+        // 2. Direct binary PUT upload without locked headers
+        const s3Resp = await fetch(uploadUrl, {
           method: "PUT",
-          headers: { "Content-Type": file.type || "image/jpeg" },
           body: file
         });
 
+        if (!s3Resp.ok) {
+          throw new Error(`S3 upload failed with status ${s3Resp.status}`);
+        }
+
+        showToast("Saving model to catalog...");
+
         // 3. Save model metadata to DynamoDB
-        await fetch(`${API_URL}/catalog`, {
+        const dbResp = await fetch(`${API_URL}/catalog`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -1069,6 +1077,8 @@
           })
         });
 
+        if (!dbResp.ok) throw new Error("Failed to save to database");
+
         showToast("Model published successfully!");
         document.getElementById('mEn').value = '';
         document.getElementById('mTe').value = '';
@@ -1076,8 +1086,8 @@
         fileInput.value = '';
         loadAdminCatalog();
       } catch (err) {
-        console.error(err);
-        showToast("Upload failed, please try again.");
+        console.error("Upload error details:", err);
+        showToast(`Error: ${err.message}`);
       }
     }
 
@@ -1130,7 +1140,7 @@
       document.getElementById('t_waBtn').innerText = isTelugu ? "💬 వాట్సాప్ ద్వారా పంపండి" : "💬 Confirm & Send via WhatsApp";
       document.getElementById('t_cbBtn').innerText = isTelugu ? "🕒 కాల్ బ్యాక్" : "🕒 Request Free Callback";
 
-      // Update button text for bilingual support
+      // Updated Category 1 Label
       document.getElementById('btnCatDresses').innerText = isTelugu ? "1. అన్ని రకాల కుట్లు & మోడల్స్" : "1. All Types of Stitching";
       document.getElementById('btnCatAlt').innerText = isTelugu ? "2. ఆల్టరేషన్స్ & ఫాల్స్" : "2. Alterations & Saree Falls";
       document.getElementById('btnCatMaggam').innerText = isTelugu ? "3. మగ్గం & ఆరి వర్క్" : "3. Maggam & Aari Work";

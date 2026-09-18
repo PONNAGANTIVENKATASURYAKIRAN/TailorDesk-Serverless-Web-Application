@@ -62,28 +62,23 @@ def lambda_handler(event, context):
     path = event.get("path", "")
     method = event.get("httpMethod")
 
-    # PRESIGNED UPLOAD ROUTE WITH CATEGORY FOLDER SEPARATION
+    # PRESIGNED UPLOAD ROUTE WITH S3 FOLDER SEPARATION
     if "/catalog/upload-url" in path and method == "POST":
         body = json.loads(event.get("body", "{}"))
         filename = body.get("filename", f"{uuid.uuid4().hex[:8]}.jpg")
-        content_type = body.get("contentType", "image/jpeg")
         category = body.get("category", "Dresses")
 
-        # Route to dedicated S3 folder
-        if category == "Maggam":
-            folder = "Maggam_Images"
-        else:
-            folder = "Dresses_Images"
-
+        # Route files into distinct S3 folder prefixes
+        folder = "Maggam_Images" if category == "Maggam" else "Dresses_Images"
         clean_filename = f"catalog-{uuid.uuid4().hex[:6]}-{filename.replace(' ', '_')}"
         s3_key = f"{folder}/{clean_filename}"
 
+        # Generate presigned PUT without locking headers to avoid signature mismatch
         upload_url = s3_client.generate_presigned_url(
             ClientMethod="put_object",
             Params={
                 "Bucket": BUCKET_NAME,
                 "Key": s3_key,
-                "ContentType": content_type,
             },
             ExpiresIn=300,
         )
